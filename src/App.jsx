@@ -17,7 +17,7 @@ let modelLoadedCallback = null;
 // ============================================
 const BASE_URL = import.meta.env.BASE_URL;
 
-const getLayer = ({ fog = true, hue = 0.0, opacity = 1, path = `${BASE_URL}/assets/images/rad-grad.png`, sat = 0.5, size = 10, x = 0, y = 0, z = 0 }) => {
+const getLayer = ({ fog = true, hue = 0.0, opacity = 1, path = `${BASE_URL}assets/images/rad-grad.png`, sat = 0.5, size = 10, x = 0, y = 0, z = 0 }) => {
   let color = new THREE.Color().setHSL(hue, 1, sat);
 
   const texture = new THREE.TextureLoader().load(path);
@@ -146,16 +146,16 @@ const CONFIG = {
       //'EURO JACK',
       //                     kura
       //'NEXT GIRL',
-    ].map(name => name.includes('.wav') ? `${BASE_URL}/assets/music/${name}` : `${BASE_URL}/assets/music/${name}.flac`),
+    ].map(name => name.includes('.wav') ? `${BASE_URL}assets/music/${name}` : `${BASE_URL}assets/music/${name}.flac`),
     volume: 0.015, //0.065
     loop: false,
     fadeDuration: 250, //350
   },
   socials: [
-    { name: 'x', url: 'https://x.com', icon: `${BASE_URL}/assets/icons/x.svg` },
-    { name: 'instagram', url: 'https://instagram.com', icon: `${BASE_URL}/assets/icons/instagram.svg` },
-    { name: 'github', url: 'https://github.com', icon: `${BASE_URL}/assets/icons/github.svg` },
-    { name: 'linkedin', url: 'https://linkedin.com', icon: `${BASE_URL}/assets/icons/linkedin.svg` },
+    { name: 'x', url: 'https://x.com', icon: `${BASE_URL}assets/icons/x.svg` },
+    { name: 'instagram', url: 'https://instagram.com', icon: `${BASE_URL}assets/icons/instagram.svg` },
+    { name: 'github', url: 'https://github.com', icon: `${BASE_URL}assets/icons/github.svg` },
+    { name: 'linkedin', url: 'https://linkedin.com', icon: `${BASE_URL}assets/icons/linkedin.svg` },
   ]
 };
 
@@ -361,7 +361,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
     pivotRef.current = pivot;
 
     const material = new THREE.MeshMatcapMaterial({
-      matcap: new THREE.TextureLoader().load(`${BASE_URL}/assets/textures/matcaps/Doku-Doku-no-Mi.png`),
+      matcap: new THREE.TextureLoader().load(`${BASE_URL}assets/textures/matcaps/Doku-Doku-no-Mi.png`),
       color: new THREE.Color(0xbb3f3f),
     });
 
@@ -372,7 +372,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
     scene.add(new THREE.AmbientLight(0xff5959));
 
     const circularGradient = getLayer({
-      path: `${BASE_URL}/assets/images/rad-grad.png`,
+      path: `${BASE_URL}assets/images/rad-grad.png`,
       hue: 0.7, //0.7+
       opacity: 0,
       sat: 0.5,
@@ -382,7 +382,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
       z: -25,
     });
     const halftoneGradient = getLayer({
-      path: `${BASE_URL}/assets/images/halftone_7.png`,
+      path: `${BASE_URL}assets/images/halftone_7.png`,
       hue: 1, //0.7+
       opacity: 0,
       sat: 0,
@@ -402,7 +402,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
 
     const loader = new OBJLoader();
     loader.load(
-      `${BASE_URL}/assets/models/KidBuu.obj`,
+      `${BASE_URL}assets/models/KidBuu.obj`,
       (object) => {
         object.traverse((child) => {
           if (child.isMesh) {
