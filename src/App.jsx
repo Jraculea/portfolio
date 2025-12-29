@@ -17,6 +17,25 @@ let modelLoadedCallback = null;
 // ============================================
 const BASE_URL = import.meta.env.BASE_URL;
 
+// Mobile detection hook
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth < 768;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
 const getLayer = ({ fog = true, hue = 0.0, opacity = 1, path = `${BASE_URL}assets/images/rad-grad.png`, sat = 0.5, size = 10, x = 0, y = 0, z = 0 }) => {
   let color = new THREE.Color().setHSL(hue, 1, sat);
 
@@ -136,11 +155,11 @@ const CONFIG = {
 
       //                     tecca
       'Dark Thoughts',
-      'Down With Me',
-      'TASTE',
+      //'Down With Me',
+      //'TASTE',
       'BAD TIME',
-      'NUMBER 2',
-      'NEVER LAST',
+      //'NUMBER 2',
+      //'NEVER LAST',
 
       //                     GoVanni
       //'EURO JACK',
@@ -179,11 +198,14 @@ const CursorFollower = () => {
   const mouseRef = useRef({ x: -100, y: -100 });
   const posRef = useRef({ x: -100, y: -100 }); 
   const { activeMagneticId, followerPos, musicButtonRect } = useContext(InteractionContext);
+  const isMobile = useIsMobile();
   
   const isMagnetic = activeMagneticId !== null;
   const isMusicButton = activeMagneticId === 'music-button';
 
   useEffect(() => {
+    if (isMobile) return; // Don't run on mobile
+
     const handleMouseMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
@@ -224,7 +246,10 @@ const CursorFollower = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(frameId);
     };
-  }, [isMagnetic, isMusicButton, followerPos, musicButtonRect]);
+  }, [isMagnetic, isMusicButton, followerPos, musicButtonRect, isMobile]);
+
+  // Don't render on mobile
+  if (isMobile) return null;
 
   return (
     <div
@@ -251,6 +276,7 @@ const MagneticWrapper = ({ children, id }) => {
   const ref = useRef(null);
   const { activeMagneticId, setActiveMagneticId, followerPos } = useContext(InteractionContext);
   const rectRef = useRef(null);
+  const isMobile = useIsMobile();
   
   const physics = useRef({ x: 0, y: 0, scale: 1 });
 
@@ -264,6 +290,8 @@ const MagneticWrapper = ({ children, id }) => {
   }, []);
 
   useEffect(() => {
+    if (isMobile) return; // Disable magnetic effects on mobile
+
     let frameId;
     const animate = () => {
       if (!rectRef.current) {
@@ -311,7 +339,7 @@ const MagneticWrapper = ({ children, id }) => {
     };
     animate();
     return () => cancelAnimationFrame(frameId);
-  }, [id, activeMagneticId, setActiveMagneticId, followerPos]);
+  }, [id, activeMagneticId, setActiveMagneticId, followerPos, isMobile]);
 
   return <div ref={ref} className="will-change-transform">{children}</div>;
 };
@@ -323,6 +351,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
   const mountRef = useRef(null);
   const pivotRef = useRef(null);
   const showBackgroundRef = useRef(showBackground);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     showBackgroundRef.current = showBackground;
@@ -339,7 +368,9 @@ const AnimatedLogo = ({ style, showBackground }) => {
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
     camera.position.z = 75;
     
-    const canvasSize = Math.min((Math.min(window.innerWidth, window.innerHeight) * 0.7), 925);
+    // Slightly smaller canvas on mobile for better performance
+    const sizeMultiplier = isMobile ? 0.825 : 0.7;
+    const canvasSize = Math.min((Math.min(window.innerWidth, window.innerHeight) * sizeMultiplier), 925);
     
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -376,7 +407,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
       hue: 0.7, //0.7+
       opacity: 0,
       sat: 0.5,
-      size: 95,
+      size: isMobile ? 110 : 95,
       x: 0,
       y: 0,
       z: -25,
@@ -386,7 +417,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
       hue: 1, //0.7+
       opacity: 0,
       sat: 0,
-      size: 95,
+      size: isMobile ? 110 : 95,
       x: 0,
       y: 0,
       z: -20,
@@ -478,17 +509,17 @@ const AnimatedLogo = ({ style, showBackground }) => {
       renderer.dispose();
       composer.dispose();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div 
       ref={mountRef} 
       className="flex items-center justify-center pointer-events-none" 
       style={{ 
-        width: '25vmax',
-        height: '25vmax',
-        maxWidth: '400px',
-        maxHeight: '400px',
+        width: isMobile ? '20vmax' : '25vmax',
+        height: isMobile ? '20vmax' : '25vmax',
+        maxWidth: isMobile ? '300px' : '400px',
+        maxHeight: isMobile ? '300px' : '400px',
         ...style 
       }} 
     />
@@ -500,7 +531,8 @@ const AnimatedLogo = ({ style, showBackground }) => {
 // ============================================
 const CircularProgress = ({ progress }) => {
   const windowMaxSize = Math.min(window.innerWidth, window.innerHeight);
-  const size = windowMaxSize * 0.4; // 0.28125
+  const isMobile = useIsMobile();
+  const size = isMobile ? windowMaxSize * 0.45 : windowMaxSize * 0.4; // 0.28125
   const strokeWidth = 2;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -536,6 +568,7 @@ const LoadingScreen = ({ progress, message, onComplete, startLoading }) => {
   const [exiting, setExiting] = useState(false);
   const [logoTransform, setLogoTransform] = useState('translateY(0)');
   const [modelLoaded, setModelLoaded] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     modelLoadedCallback = () => {
@@ -583,7 +616,7 @@ const LoadingScreen = ({ progress, message, onComplete, startLoading }) => {
           className="font-bold tracking-wider transition-all duration-500 relative z-20"
           style={{ 
             color: CONFIG.colors.text,
-            fontSize: 'clamp(1rem, 4.5vmin, 2rem)',
+            fontSize: isMobile ? 'clamp(0.8rem, 2vmin, 1.75rem)' : 'clamp(1rem, 4.5vmin, 2rem)',
             opacity: elementsVisible && !isReady && !exiting ? 1 : 0,
             transform: isReady ? 'scale(0.8)' : 'scale(1)'
           }}
@@ -621,7 +654,7 @@ const LoadingScreen = ({ progress, message, onComplete, startLoading }) => {
             className="absolute font-medium tracking-wide transition-opacity duration-500 pointer-events-none"
             style={{ 
               color: CONFIG.colors.text, 
-              fontSize: 'clamp(0.75rem, 3.25vmin, 1.5rem)',
+              fontSize: isMobile ? 'clamp(0.6rem, 2vmin, 1.4rem)' : 'clamp(0.75rem, 3.25vmin, 1.5rem)',
               opacity: elementsVisible && !isReady && !exiting ? 1 : 0,
               animation: elementsVisible && !isReady && !exiting ? 'pulse 2s infinite' : 'none'
             }}
@@ -638,10 +671,10 @@ const LoadingScreen = ({ progress, message, onComplete, startLoading }) => {
               group
             `}
             style={{
-              fontSize: 'clamp(0.1rem, 4vmin, 1.4rem)',
-              padding: 'clamp(0.35rem, 1.375vmin, 1.375rem) clamp(2rem, 7.75vmin, 7.75rem)',
+              fontSize: isMobile ? 'clamp(0.7rem, 2vmin, 1.5rem)' : 'clamp(0.1rem, 4vmin, 1.4rem)',
+              padding: isMobile ? 'clamp(0.25rem, 1.375vmin, 1.15rem) clamp(2rem, 8vmin, 5rem)' : 'clamp(0.35rem, 1.375vmin, 1.375rem) clamp(2rem, 7.75vmin, 7.75rem)',
               opacity: isReady && !exiting ? 1 : 0,
-              transform: isReady && !exiting ? 'translateY(-0.75vmin)' : 'translateY(2vmin)', 
+              transform: isReady && !exiting ? (isMobile ? 'translateY(1.15vmin)' : 'translateY(-0.75vmin)') : 'translateY(12vmin)', 
               pointerEvents: isReady && !exiting ? 'auto' : 'none',
               borderColor: CONFIG.colors.primary,
               backgroundColor: 'transparent',
@@ -683,11 +716,21 @@ const SocialItem = ({ social }) => (
   </MagneticWrapper>
 );
 
-const SocialSidebar = () => (
-  <div className="fixed bottom-[11.5vmin] left-[8vmin] flex flex-col gap-[4.75vmin] z-50">
-    {CONFIG.socials.map((social) => <SocialItem key={social.name} social={social} />)}
-  </div>
-);
+const SocialSidebar = () => {
+  const isMobile = useIsMobile();
+  return (
+    <div 
+      className="fixed flex flex-col z-50"
+      style={{
+        bottom: isMobile ? 'clamp(50px, 8vmin, 75px)' : '11.5vmin',
+        left: isMobile ? 'clamp(40px, 8vmin, 55px)' : '8vmin',
+        gap: isMobile ? 'clamp(35px, 8vmin, 50px)' : '4.75vmin'
+      }}
+    >
+      {CONFIG.socials.map((social) => <SocialItem key={social.name} social={social} />)}
+    </div>
+  );
+};
 
 // ============================================
 // PORTFOLIO CONTENT
@@ -696,15 +739,18 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
   const buttonRef = useRef(null);
   const mousePos = useRef({ x: -100, y: -100 });
   const { activeMagneticId, setActiveMagneticId, followerPos, musicButtonRect } = useContext(InteractionContext);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    if (isMobile) return; // Don't track mouse on mobile
+
     const handleMouseMove = (e) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const updateRect = () => {
@@ -724,7 +770,7 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
   }, [musicButtonRect, isVisible]); // Added isVisible to ensure rect is calculated when component appears
 
   useEffect(() => {
-    if (!buttonRef.current) return;
+    if (isMobile || !buttonRef.current) return; // Skip magnetic effect on mobile
 
     let frameId;
     const animate = () => {
@@ -760,15 +806,16 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
     animate();
 
     return () => cancelAnimationFrame(frameId);
-  }, [activeMagneticId, setActiveMagneticId, musicButtonRect, isVisible]); // Added isVisible dependency
+  }, [activeMagneticId, setActiveMagneticId, musicButtonRect, isVisible, isMobile]);
 
   return (
     <div
-      className={`min-h-screen p-8 transition-opacity`}
+      className="min-h-screen transition-opacity"
       style={{
         backgroundColor: CONFIG.colors.background,
         opacity: isVisible ? 1 : 0,
-        transitionDuration: `${CONFIG.animations.contentFadeIn}ms`
+        transitionDuration: `${CONFIG.animations.contentFadeIn}ms`,
+        padding: isMobile ? 'clamp(12px, 3vmin, 20px)' : '2rem'
       }}
     >
       <CursorFollower />
@@ -778,23 +825,25 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
         <button
           ref={buttonRef}
           onClick={onMusicToggle}
-          className="fixed top-[8vmin] right-[8vmin] rounded-full backdrop-blur-sm transition-all hover:scale-110 active:scale-95 z-50 shadow-lg flex items-center justify-center"
+          className="fixed rounded-full backdrop-blur-sm transition-all hover:scale-110 active:scale-95 z-50 shadow-lg flex items-center justify-center touch-manipulation"
           style={{
             backgroundColor: `${CONFIG.colors.primary}40`,
             border: `2px solid ${CONFIG.colors.primary}`,
-            width: 'clamp(45px, 8vmin, 100px)',
-            height: 'clamp(45px, 8vmin, 100px)',
+            width: isMobile ? 'clamp(55px, 10vmin, 80px)' : 'clamp(45px, 8vmin, 100px)',
+            height: isMobile ? 'clamp(55px, 10vmin, 80px)' : 'clamp(45px, 8vmin, 100px)',
+            top: isMobile ? 'clamp(40px, 3vmin, 50px)' : '8vmin',
+            right: isMobile ? 'clamp(30px, 3vmin, 35px)' : '8vmin',
             padding: 0,
           }}
         >
           {isPlaying ? (
             <Pause 
-              size="1.5vmax"
+              size={isMobile ? "2.25vmax" : "1.5vmax"}
               style={{ color: CONFIG.colors.text, minWidth: '16px', minHeight: '20px' }} 
             />
           ) : (
             <Play 
-              size="1.5vmax"
+              size={isMobile ? "2.25vmax" : "1.5vmax"}
               style={{ color: CONFIG.colors.text, minWidth: '16px', minHeight: '20px' }} 
             />
           )}
