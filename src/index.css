@@ -36,7 +36,6 @@ html, body {
   background-color: #000000;
 }
 
-/* Mobile touch improvements */
 @media (hover: none) and (pointer: coarse) {
   * {
     -webkit-tap-highlight-color: transparent;
