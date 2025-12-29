@@ -2,22 +2,17 @@ import * as THREE from 'three';
 
 import { useState, useEffect, useRef, createContext, useContext } from 'react';
 
-import { Play, Pause } from 'lucide-react';
-
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
-let mainModelLoaded = false;
+import { Play, Pause } from 'lucide-react';
+
 let modelLoadedCallback = null;
 
-// ============================================
-// HELPER FUNCTIONS
-// ============================================
 const BASE_URL = import.meta.env.BASE_URL;
 
-// Mobile detection hook
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -58,9 +53,6 @@ const getLayer = ({ fog = true, hue = 0.0, opacity = 1, path = `${BASE_URL}asset
   return sprite;
 };
 
-// ============================================
-// CONFIGURATION
-// ============================================
 const CONFIG = {
   colors: {
     primary: '#fc2d2dff', //fc2d2dff
@@ -97,10 +89,10 @@ const CONFIG = {
       //                    Justin Bieber
       //'SPEED DEMON',
       //'DAISIES',
-      //'YUKON',
+      'YUKON',
 
       //                    SoFaygo
-      //'MONSTER',
+      'MONSTER',
       //'Rain Coat.wav',
       //'NIGHTLIFE.wav',
       //'Call me.wav',
@@ -116,7 +108,7 @@ const CONFIG = {
 
       //                     uno
       //'Above the Rib',
-      //'Soufside Love Story (Follow Me)',
+      'Soufside Love Story (Follow Me)',
 
       //                     SZA
       //'Ghost in the Machine (feat. Phoebe Bridgers)',
@@ -151,13 +143,13 @@ const CONFIG = {
       //'jumanji',
 
       //                     uzi
-      //'What You Saying',
+      'What You Saying',
 
       //                     tecca
-      'Dark Thoughts',
+      //'Dark Thoughts',
       //'Down With Me',
       //'TASTE',
-      'BAD TIME',
+      //'BAD TIME',
       //'NUMBER 2',
       //'NEVER LAST',
 
@@ -166,7 +158,7 @@ const CONFIG = {
       //                     kura
       //'NEXT GIRL',
     ].map(name => name.includes('.wav') ? `${BASE_URL}assets/music/${name}` : `${BASE_URL}assets/music/${name}.flac`),
-    volume: 0.015, //0.065
+    volume: 0.02, //0.065
     loop: false,
     fadeDuration: 250, //350
   },
@@ -180,9 +172,6 @@ const CONFIG = {
 
 const clock = new THREE.Clock();
 
-// ============================================
-// CONTEXT FOR INTERACTION STATE
-// ============================================
 const InteractionContext = createContext({
   activeMagneticId: null, 
   setActiveMagneticId: () => {},
@@ -190,9 +179,6 @@ const InteractionContext = createContext({
   musicButtonRect: { current: null }
 });
 
-// ============================================
-// CURSOR FOLLOWER COMPONENT
-// ============================================
 const CursorFollower = () => {
   const cursorRef = useRef(null);
   const mouseRef = useRef({ x: -100, y: -100 });
@@ -204,7 +190,7 @@ const CursorFollower = () => {
   const isMusicButton = activeMagneticId === 'music-button';
 
   useEffect(() => {
-    if (isMobile) return; // Don't run on mobile
+    if (isMobile) return;
 
     const handleMouseMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
@@ -248,7 +234,6 @@ const CursorFollower = () => {
     };
   }, [isMagnetic, isMusicButton, followerPos, musicButtonRect, isMobile]);
 
-  // Don't render on mobile
   if (isMobile) return null;
 
   return (
@@ -259,8 +244,8 @@ const CursorFollower = () => {
         backgroundColor: CONFIG.colors.primary,
         top: 0,
         left: 0,
-        width: isMusicButton ? 'clamp(57px, 12vmin, 125px)' : (isMagnetic ? 'clamp(32px, 8vmin, 75px)' : 'clamp(25px, 8vmin, 60px)'),
-        height: isMusicButton ? 'clamp(57px, 12vmin, 125px)' : (isMagnetic ? 'clamp(32px, 8vmin, 75px)' : 'clamp(25px, 8vmin, 60px)'),
+        width: isMusicButton ? 'clamp(57px, 12vmin, 125px)' : (isMagnetic ? 'clamp(32px, 8vmin, 75px)' : 'clamp(25px, 8vmin, 60px)'), //15px
+        height: isMusicButton ? 'clamp(57px, 12vmin, 125px)' : (isMagnetic ? 'clamp(32px, 8vmin, 75px)' : 'clamp(25px, 8vmin, 60px)'), //15px
         opacity: 1,
         mixBlendMode: 'difference',
         willChange: 'transform, width, height'
@@ -269,9 +254,6 @@ const CursorFollower = () => {
   );
 };
 
-// ============================================
-// MAGNETIC WRAPPER COMPONENT
-// ============================================
 const MagneticWrapper = ({ children, id }) => {
   const ref = useRef(null);
   const { activeMagneticId, setActiveMagneticId, followerPos } = useContext(InteractionContext);
@@ -290,7 +272,7 @@ const MagneticWrapper = ({ children, id }) => {
   }, []);
 
   useEffect(() => {
-    if (isMobile) return; // Disable magnetic effects on mobile
+    if (isMobile) return;
 
     let frameId;
     const animate = () => {
@@ -305,7 +287,8 @@ const MagneticWrapper = ({ children, id }) => {
       const centerX = left + width / 2;
       const centerY = top + height / 2;
       const distance = Math.hypot(fx - centerX, fy - centerY);
-      const triggerRange = Math.min(window.innerWidth, window.innerHeight) * 0.025;
+      
+      const triggerRange = Math.max(22, Math.min(window.innerWidth, window.innerHeight) * 0.04); //0.0325
       
       let targetX = 0;
       let targetY = 0;
@@ -316,7 +299,7 @@ const MagneticWrapper = ({ children, id }) => {
         
         targetX = (fx - centerX);
         targetY = (fy - centerY);
-        targetScale = 1.15;
+        targetScale = 1;
       } else {
         if (activeMagneticId === id && distance > triggerRange + 10) {
             setActiveMagneticId(null);
@@ -327,7 +310,7 @@ const MagneticWrapper = ({ children, id }) => {
         targetScale = 1;
       }
 
-      const ease = 0.1;
+      const ease = 0.08;
       physics.current.x += (targetX - physics.current.x) * ease;
       physics.current.y += (targetY - physics.current.y) * ease;
       physics.current.scale += (targetScale - physics.current.scale) * ease;
@@ -344,9 +327,6 @@ const MagneticWrapper = ({ children, id }) => {
   return <div ref={ref} className="will-change-transform">{children}</div>;
 };
 
-// ============================================
-// 3D ANIMATED LOGO COMPONENT
-// ============================================
 const AnimatedLogo = ({ style, showBackground }) => {
   const mountRef = useRef(null);
   const pivotRef = useRef(null);
@@ -368,7 +348,6 @@ const AnimatedLogo = ({ style, showBackground }) => {
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
     camera.position.z = 75;
     
-    // Slightly smaller canvas on mobile for better performance
     const sizeMultiplier = isMobile ? 0.825 : 0.7;
     const canvasSize = Math.min((Math.min(window.innerWidth, window.innerHeight) * sizeMultiplier), 925);
     
@@ -461,8 +440,6 @@ const AnimatedLogo = ({ style, showBackground }) => {
 
         pivot.add(object);
 
-        mainModelLoaded = true;
-
         if (modelLoadedCallback) {
           modelLoadedCallback();
         }
@@ -526,9 +503,6 @@ const AnimatedLogo = ({ style, showBackground }) => {
   );
 };
 
-// ============================================
-// CIRCULAR PROGRESS BAR
-// ============================================
 const CircularProgress = ({ progress }) => {
   const windowMaxSize = Math.min(window.innerWidth, window.innerHeight);
   const isMobile = useIsMobile();
@@ -558,9 +532,6 @@ const CircularProgress = ({ progress }) => {
   );
 };
 
-// ============================================
-// LOADING SCREEN
-// ============================================
 const LoadingScreen = ({ progress, message, onComplete, startLoading }) => {
   const [logoVisible, setLogoVisible] = useState(false);
   const [elementsVisible, setElementsVisible] = useState(false);
@@ -701,20 +672,37 @@ const LoadingScreen = ({ progress, message, onComplete, startLoading }) => {
   );
 };
 
-// ============================================
-// SOCIAL SIDEBAR
-// ============================================
-const SocialItem = ({ social }) => (
-  <MagneticWrapper id={social.name}>
-    <a href={social.url} target="_blank" rel="noopener noreferrer" className="block p-2" title={social.name}>
-      <img 
-        src={social.icon} 
-        alt={social.name} 
-        className="w-[1.625vmax] h-[1.625vmax] min-w-[5px] min-h-[5px] max-w-[26px] max-h-[26px] invert"
-      />
-    </a>
-  </MagneticWrapper>
-);
+const SocialItem = ({ social }) => {
+  const { activeMagneticId } = useContext(InteractionContext);
+  const isActive = activeMagneticId === social.name;
+
+  return (
+    <MagneticWrapper id={social.name}>
+      <a href={social.url} target="_blank" rel="noopener noreferrer" className="block p-2" title={social.name}>
+        <div 
+          className="transition-colors duration-200"
+          style={{
+            backgroundColor: isActive ? CONFIG.colors.primary : CONFIG.colors.text,
+            maskImage: `url(${social.icon})`,
+            WebkitMaskImage: `url(${social.icon})`,
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center',
+            width: '1.625vmax',
+            height: '1.625vmax',
+            minWidth: '16px',
+            minHeight: '16px',
+            maxWidth: '26px',
+            maxHeight: '26px',
+          }}
+        />
+      </a>
+    </MagneticWrapper>
+  );
+};
 
 const SocialSidebar = () => {
   const isMobile = useIsMobile();
@@ -732,17 +720,16 @@ const SocialSidebar = () => {
   );
 };
 
-// ============================================
-// PORTFOLIO CONTENT
-// ============================================
 const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
   const buttonRef = useRef(null);
   const mousePos = useRef({ x: -100, y: -100 });
   const { activeMagneticId, setActiveMagneticId, followerPos, musicButtonRect } = useContext(InteractionContext);
   const isMobile = useIsMobile();
 
+  const isMusicActive = activeMagneticId === 'music-button';
+
   useEffect(() => {
-    if (isMobile) return; // Don't track mouse on mobile
+    if (isMobile) return;
 
     const handleMouseMove = (e) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
@@ -767,10 +754,10 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
       window.removeEventListener('resize', updateRect);
       window.removeEventListener('scroll', updateRect);
     };
-  }, [musicButtonRect, isVisible]); // Added isVisible to ensure rect is calculated when component appears
+  }, [musicButtonRect, isVisible]);
 
   useEffect(() => {
-    if (isMobile || !buttonRef.current) return; // Skip magnetic effect on mobile
+    if (isMobile || !buttonRef.current) return;
 
     let frameId;
     const animate = () => {
@@ -787,7 +774,8 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
       const mouseX = mousePos.current.x;
       const mouseY = mousePos.current.y;
       const distance = Math.hypot(mouseX - buttonCenterX, mouseY - buttonCenterY);
-      const triggerRange = Math.min(window.innerWidth, window.innerHeight) * 0.05;
+      
+      const triggerRange = Math.max(30, Math.min(window.innerWidth, window.innerHeight) * 0.05);
 
       const id = 'music-button';
 
@@ -839,12 +827,22 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
           {isPlaying ? (
             <Pause 
               size={isMobile ? "2.25vmax" : "1.5vmax"}
-              style={{ color: CONFIG.colors.text, minWidth: '16px', minHeight: '20px' }} 
+              style={{ 
+                color: isMusicActive ? CONFIG.colors.primary : CONFIG.colors.text, 
+                minWidth: '16px', 
+                minHeight: '20px',
+                transition: 'color 0.2s ease'
+              }} 
             />
           ) : (
             <Play 
               size={isMobile ? "2.25vmax" : "1.5vmax"}
-              style={{ color: CONFIG.colors.text, minWidth: '16px', minHeight: '20px' }} 
+              style={{ 
+                color: isMusicActive ? CONFIG.colors.primary : CONFIG.colors.text, 
+                minWidth: '16px', 
+                minHeight: '20px',
+                transition: 'color 0.2s ease'
+              }} 
             />
           )}
         </button>
@@ -853,9 +851,6 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
   );
 };
 
-// ============================================
-// MAIN APP
-// ============================================
 export default function PortfolioWebsite() {
   const [progress, setProgress] = useState(0);
   const [messageIndex, setMessageIndex] = useState(0);
