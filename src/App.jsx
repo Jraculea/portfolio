@@ -9,6 +9,8 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 
 import { Play, Pause } from 'lucide-react';
 
+import TopoBackground from './TopoBackground';
+
 let modelLoadedCallback = null;
 
 const BASE_URL = import.meta.env.BASE_URL;
@@ -86,79 +88,178 @@ const CONFIG = {
   },
   music: {
     playlist: [
-      //                    Justin Bieber
-      //'SPEED DEMON',
-      //'DAISIES',
+      //                    22gz
+      ////'Retaliation',
+      'Sniper Gang Freestyle',
+      ////'Twirlanta',
+      
+      //                    a boogie
+      'Me and My Guitar',
+
+      //                    che
+      'BA$$',
+      ////'BLACK SWAN',
+      'EARDRUMMER',
+      'FREAK NEEK',
+      ////'MDMA',
+      ////'ROLLING STONE',
+      'SLAM PUNK',
+      'STAGEDIVIN',
+      'WHIPPIN',
+      'Her',
+
+      //                    destin conrad
+      'DAYDREAM',
+
+      //                    lone
+      'catch a kill',
+      'jumanji',
+      'see no evil',
+
+      //                    ken
+      'Money Spread',
+      'Thx',
+      'the acronym (with Destroy Lonely)',
+
+      //                    carti
+      'OLYMPIAN',
+      'OPM BABI',
+      'OVERLY',
+
+      //                    don toliver
+      'Tiramisu',
+
+      //                    esdeekid
+      'LV Sandals',
+
+      //                    fake mink
+      'Easter Pink',
+      'Fidelio',
+
+      //                    govanni
+      'EURO JACK',
+
+      //                    jaydes
+      'fallen',
+      'kesha k',
+      'valentine',
+      'witchybitchy',
+      'xl',
+
+      //                    justin bieber
+      'DAISIES',
+      'SPEED DEMON',
       'YUKON',
 
-      //                    SoFaygo
-      'MONSTER',
-      //'Rain Coat.wav',
-      //'NIGHTLIFE.wav',
-      //'Call me.wav',
+      //                    kura
+      'NEXT GIRL',
 
-      //                     che
-      //'FREAK NEEK',
-      //'WHIPPIN',
-      //'Her',
+      //                    tecca
+      ////'BAD TIME',
+      'Dark Thoughts',
+      'Down With Me',
+      ////'NEVER LAST',
+      ////'NUMBER 2',
+      ////'TASTE',
 
-      //                     tana
-      //'Living Lavish',
-      //'Magic City',
-
-      //                     uno
-      //'Above the Rib',
-      'Soufside Love Story (Follow Me)',
-
-      //                     SZA
-      //'Ghost in the Machine (feat. Phoebe Bridgers)',
-
-      //                     Destin Conrad
-      //'DAYDREAM',
-
-      //                     Travis Scott
-      //'90210 (feat. Kacy Hill)',
-
-      //                     Sheff G
-      // 'No Suburban, Pt.2',
-      // 'Flows',
-      // 'Flows, Pt.2',
-      //                     Sleepy Hallow
-      //'Breakin Bad (Okay)',
-      // 'Calling',
-      // 'Molly',
-      // '6am In NY',
-
-      //                     carti
-      //'OLYMPIAN',
-      //'OPM BABI',
-      //'OVERLY',
-      //                     ken
-      //'Money Spread',
-      //'Thx',
-      //'the acronym (with Destroy Lonely)',
-      //                     lone
-      //'catch a kill',
-      //'see no evil',
-      //'jumanji',
-
-      //                     uzi
+      //                    uzi
+      'Chanel Boy',
+      'Regular',
+      'Relevant',
       'What You Saying',
 
-      //                     tecca
-      //'Dark Thoughts',
-      //'Down With Me',
-      //'TASTE',
-      //'BAD TIME',
-      //'NUMBER 2',
-      //'NEVER LAST',
+      //                    lucy bedroque
+      'Fenty Face',
+      'G6 Anthem',
+      'How to Pretend',
+      'INFINITUDE UROBOROS',
+      'true perspective',
+      'Yes, You May',
+      'Ultraviolet',
 
-      //                     GoVanni
-      //'EURO JACK',
-      //                     kura
-      //'NEXT GIRL',
+      //                    nett
+      'Beach leak',
+      'Shut Up',
+      'Tommy',
+      'Impact (with xaviersobased)',
+
+      //                    pop smoke
+      'Merci Beaucoup',
+
+      //                    prettifun
+      'Ice Cream',
+      'Light',
+      'Touch The Sun',
+
+      //                    sheff g
+      'No Suburban, Pt. 2',
+      ////'Flows',
+      ////'Flows, Pt. 2',
+
+      //                    sleepy hallow
+      '6am In NY',
+      'Calling',
+      'Breakin Bad (Okay)',
+      'Molly',
+
+      //                    sofaygo
+      'BACK IN THE MIX',
+      ////'BANKROLLS',
+      ////'CHALLENGE',
+      'COUNT UP FAST',
+      ////'CRASH OUT',
+      'EXTREME',
+      ////'FIGURE ME OUT',
+      'GROW',
+      ////'MAYDAY',
+      ////'MISSION',
+      ////'MONEY AND CLOTHES',
+      'MONSTER',
+      'OUTSIDE',
+      'RELOCATE',
+      'SAFE',
+      'SEE ME SHINE',
+      'WASTED',
+      'Flex Up (feat. Hardrock)',
+      'NOTICE ME',
+      'OPEN IT UP',
+
+      'Call me.wav',
+      'CLIMB.wav',
+      'Fell In Luv.wav',
+      'GO OFF.wav',
+      'NEW YORK.wav',
+      ////'NIGHTLIFE.wav',
+      ////'Rain Coat.wav',
+      //'SAY IT.wav',
+      'STAY DANGEROUS.wav',
+      'What I Got.wav',
+      
+      //                    sza
+      'Ghost in the Machine (feat. Phoebe Bridgers)',
+
+      //                    tana
+      'Living Lavish',
+      'Magic City',
+
+      //                    travis
+      'DUMBO',
+      'I KNOW',
+      'MY EYES',
+      '90210 (feat. Kacy Hill)',
+
+      //                    uno
+      'Above the Rib',
+      'Soufside Love Story (Follow Me)',
+
+      //                    untiljapan
+      'Child Soldier',
+      'PYRAMIDZ',
+
+      //                    xaviersobased
+      'love hate',
     ].map(name => name.includes('.wav') ? `${BASE_URL}assets/music/${name}` : `${BASE_URL}assets/music/${name}.flac`),
-    volume: 0.02, //0.065
+    volume: 0.065, //0.065
     loop: false,
     fadeDuration: 250, //350
   },
@@ -169,8 +270,6 @@ const CONFIG = {
     { name: 'linkedin', url: 'https://linkedin.com', icon: `${BASE_URL}assets/icons/linkedin.svg` },
   ]
 };
-
-const clock = new THREE.Clock();
 
 const InteractionContext = createContext({
   activeMagneticId: null, 
@@ -675,6 +774,7 @@ const LoadingScreen = ({ progress, message, onComplete, startLoading }) => {
 const SocialItem = ({ social }) => {
   const { activeMagneticId } = useContext(InteractionContext);
   const isActive = activeMagneticId === social.name;
+  const isMobile = useIsMobile();
 
   return (
     <MagneticWrapper id={social.name}>
@@ -693,8 +793,8 @@ const SocialItem = ({ social }) => {
             WebkitMaskPosition: 'center',
             width: '1.625vmax',
             height: '1.625vmax',
-            minWidth: '16px',
-            minHeight: '16px',
+            minWidth: isMobile ? '16px' : '8px',
+            minHeight: isMobile ? '16px' : '8px',
             maxWidth: '26px',
             maxHeight: '26px',
           }}
@@ -712,7 +812,7 @@ const SocialSidebar = () => {
       style={{
         bottom: isMobile ? 'clamp(50px, 8vmin, 75px)' : '11.5vmin',
         left: isMobile ? 'clamp(40px, 8vmin, 55px)' : '8vmin',
-        gap: isMobile ? 'clamp(35px, 8vmin, 50px)' : '4.75vmin'
+        gap: isMobile ? 'clamp(35px, 8vmin, 50px)' : 'clamp(28px, 4.75vmin, 65px)'
       }}
     >
       {CONFIG.socials.map((social) => <SocialItem key={social.name} social={social} />)}
@@ -817,8 +917,8 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
           style={{
             backgroundColor: `${CONFIG.colors.primary}40`,
             border: `2px solid ${CONFIG.colors.primary}`,
-            width: isMobile ? 'clamp(55px, 10vmin, 80px)' : 'clamp(45px, 8vmin, 100px)',
-            height: isMobile ? 'clamp(55px, 10vmin, 80px)' : 'clamp(45px, 8vmin, 100px)',
+            width: isMobile ? 'clamp(55px, 10vmin, 110px)' : 'clamp(45px, 9vmin, 100px)',
+            height: isMobile ? 'clamp(55px, 10vmin, 110px)' : 'clamp(45px, 9vmin, 100px)',
             top: isMobile ? 'clamp(40px, 3vmin, 50px)' : '8vmin',
             right: isMobile ? 'clamp(30px, 3vmin, 35px)' : '8vmin',
             padding: 0,
@@ -826,7 +926,7 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
         >
           {isPlaying ? (
             <Pause 
-              size={isMobile ? "2.25vmax" : "1.5vmax"}
+              size={isMobile ? "2.25vmax" : "clamp(5px, 3.25vmin, 40px)"}
               style={{ 
                 color: isMusicActive ? CONFIG.colors.primary : CONFIG.colors.text, 
                 minWidth: '16px', 
@@ -836,7 +936,7 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
             />
           ) : (
             <Play 
-              size={isMobile ? "2.25vmax" : "1.5vmax"}
+              size={isMobile ? "2.25vmax" : "clamp(5px, 3.25vmin, 40px)"}
               style={{ 
                 color: isMusicActive ? CONFIG.colors.primary : CONFIG.colors.text, 
                 minWidth: '16px', 
@@ -847,6 +947,8 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
           )}
         </button>
       )}
+
+      {/* / */}
     </div>
   );
 };
@@ -942,6 +1044,10 @@ export default function PortfolioWebsite() {
   return (
     <InteractionContext.Provider value={{ activeMagneticId, setActiveMagneticId, followerPos, musicButtonRect }}>
       <div className="relative" style={{ backgroundColor: CONFIG.colors.background }}>
+        <TopoBackground externalAudioRef={audioRef} />
+
+        {/* <audio ref={audioRef} crossOrigin="anonymous" loop /> */}
+        
         {showLoadingScreen && (
           <LoadingScreen
             progress={Math.round(progress)}
