@@ -137,7 +137,7 @@ const CONFIG = {
       'Fidelio',
 
       //                    govanni
-      'EURO JACK',
+      //'EURO JACK',
 
       //                    jaydes
       'fallen',
@@ -152,7 +152,7 @@ const CONFIG = {
       'YUKON',
 
       //                    kura
-      'NEXT GIRL',
+      //'NEXT GIRL',
 
       //                    tecca
       ////'BAD TIME',
@@ -164,7 +164,7 @@ const CONFIG = {
 
       //                    uzi
       'Chanel Boy',
-      'Regular',
+      //'Regular',
       'Relevant',
       'What You Saying',
 
