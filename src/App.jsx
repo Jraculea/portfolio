@@ -90,61 +90,71 @@ const CONFIG = {
     playlist: [
       //                    22gz
       ////'Retaliation',
-      'Sniper Gang Freestyle',
+      //'Sniper Gang Freestyle',
       ////'Twirlanta',
       
       //                    a boogie
-      'Me and My Guitar',
+//      'Me and My Guitar',
+
+      //                    brent
+      'butterflies',
+      'four seasons',
+      'have to',
+      'wrong faces',
 
       //                    che
       'BA$$',
       ////'BLACK SWAN',
       'EARDRUMMER',
-      'FREAK NEEK',
+//      'FREAK NEEK',
       ////'MDMA',
       ////'ROLLING STONE',
-      'SLAM PUNK',
-      'STAGEDIVIN',
-      'WHIPPIN',
-      'Her',
+//      'SLAM PUNK',
+//      'STAGEDIVIN',
+//      'WHIPPIN',
+//      'Her',
 
       //                    destin conrad
       'DAYDREAM',
 
       //                    lone
-      'catch a kill',
-      'jumanji',
-      'see no evil',
+//      'catch a kill',
+//      'jumanji',
+//      'see no evil',
 
       //                    ken
-      'Money Spread',
-      'Thx',
-      'the acronym (with Destroy Lonely)',
+//      'Money Spread',
+//      'Thx',
+//      'the acronym (with Destroy Lonely)',
 
       //                    carti
-      'OLYMPIAN',
-      'OPM BABI',
-      'OVERLY',
+//      'OLYMPIAN',
+//      'OPM BABI',
+//      'OVERLY',
 
       //                    don toliver
       'Tiramisu',
 
       //                    esdeekid
-      'LV Sandals',
+//      'LV Sandals',
 
       //                    fake mink
-      'Easter Pink',
-      'Fidelio',
+//      'Easter Pink',
+//      'Fidelio',
 
       //                    govanni
       //'EURO JACK',
 
       //                    jaydes
-      'fallen',
-      'kesha k',
+//      'fallen',
+//      'kesha k',
       'valentine',
-      'witchybitchy',
-      'xl',
+//      'witchybitchy',
+//      'xl',
+
+      //                    cole
+      //'The Let Out',
+      //'Old Dog (with Petey Pablo)',
 
       //                    justin bieber
       'DAISIES',
@@ -163,101 +173,103 @@ const CONFIG = {
       ////'TASTE',
 
       //                    uzi
-      'Chanel Boy',
+//      'Chanel Boy',
       //'Regular',
-      'Relevant',
-      'What You Saying',
+//      'Relevant',
+//      'What You Saying',
 
       //                    lucy bedroque
-      'Fenty Face',
-      'G6 Anthem',
+//      'Fenty Face',
+//      'G6 Anthem',
       'How to Pretend',
       'INFINITUDE UROBOROS',
-      'true perspective',
+//      'true perspective',
       'Yes, You May',
-      'Ultraviolet',
+//      'Ultraviolet',
 
       //                    nett
-      'Beach leak',
-      'Shut Up',
-      'Tommy',
-      'Impact (with xaviersobased)',
+//      'Beach leak',
+//      'Shut Up',
+//      'Tommy',
+//      'Impact (with xaviersobased)',
 
       //                    pop smoke
-      'Merci Beaucoup',
+      //'Merci Beaucoup',
 
       //                    prettifun
-      'Ice Cream',
-      'Light',
-      'Touch The Sun',
+//      'Ice Cream',
+//      'Light',
+//      'Touch The Sun',
 
       //                    sheff g
-      'No Suburban, Pt. 2',
+      //'No Suburban, Pt. 2',
       ////'Flows',
       ////'Flows, Pt. 2',
 
       //                    sleepy hallow
-      '6am In NY',
-      'Calling',
-      'Breakin Bad (Okay)',
-      'Molly',
+      //'6am In NY',
+//      'Calling',
+      //'Breakin Bad (Okay)',
+      //'Molly',
 
       //                    sofaygo
-      'BACK IN THE MIX',
+      'Satellite',
+      
+//      'BACK IN THE MIX',
       ////'BANKROLLS',
       ////'CHALLENGE',
-      'COUNT UP FAST',
+//      'COUNT UP FAST',
       ////'CRASH OUT',
-      'EXTREME',
+//      'EXTREME',
       ////'FIGURE ME OUT',
-      'GROW',
+//      'GROW',
       ////'MAYDAY',
       ////'MISSION',
       ////'MONEY AND CLOTHES',
       'MONSTER',
       'OUTSIDE',
-      'RELOCATE',
-      'SAFE',
-      'SEE ME SHINE',
-      'WASTED',
-      'NOTICE ME',
-      'OPEN IT UP',
+//      'RELOCATE',
+//      'SAFE',
+//      'SEE ME SHINE',
+//      'WASTED',
+      //'NOTICE ME',
+//      'OPEN IT UP',
 
-      'Call me.wav',
-      'CLIMB.wav',
-      'Fell In Luv.wav',
-      'Flex Up (feat. Hardrock).wav',
-      'GO OFF.wav',
-      'NEW YORK.wav',
+      //'Call me.wav',
+      //'CLIMB.wav',
+      //'Fell In Luv.wav',
+      //'Flex Up (feat. Hardrock).wav',
+      //'GO OFF.wav',
+      //'NEW YORK.wav',
       ////'NIGHTLIFE.wav',
       ////'Rain Coat.wav',
       //'SAY IT.wav',
-      'STAY DANGEROUS.wav',
-      'What I Got.wav',
+      //'STAY DANGEROUS.wav',
+      //'What I Got.wav',
       
       //                    sza
       'Ghost in the Machine (feat. Phoebe Bridgers)',
 
       //                    tana
-      'Living Lavish',
-      'Magic City',
+//      'Living Lavish',
+//      'Magic City',
 
       //                    travis
-      'DUMBO',
+//      'DUMBO',
       'I KNOW',
       'MY EYES',
       '90210 (feat. Kacy Hill)',
 
       //                    uno
-      'Above the Rib',
-      'Soufside Love Story (Follow Me)',
+//      'Above the Rib',
+//      'Soufside Love Story (Follow Me)',
 
       //                    untiljapan
-      'Child Soldier',
-      'PYRAMIDZ',
+//      'Child Soldier',
+//      'PYRAMIDZ',
 
       //                    xaviersobased
-      'love hate',
+//      'love hate',
     ].map(name => name.includes('.wav') ? `${BASE_URL}assets/music/${name}` : `${BASE_URL}assets/music/${name}.flac`),
     volume: 0.065, //0.065
     loop: false,
@@ -511,7 +523,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
 
     const loader = new OBJLoader();
     loader.load(
-      `${BASE_URL}assets/models/KidBuu.obj`,
+      `${BASE_URL}assets/models/Mewtwo.obj`, //KidBuu
       (object) => {
         object.traverse((child) => {
           if (child.isMesh) {
@@ -525,7 +537,8 @@ const AnimatedLogo = ({ style, showBackground }) => {
         box.getCenter(center);
 
         object.position.set(-center.x, -center.y, -center.z);
-        object.scale.set(0.25, 0.25, 0.25);
+        object.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), 135.5);
+        object.scale.set(0.5, 0.5, 0.5);
 
         object.updateMatrixWorld(true);
 
@@ -561,8 +574,8 @@ const AnimatedLogo = ({ style, showBackground }) => {
       const time = clock.getElapsedTime();
       
       if (pivot) {
-        pivot.rotation.y = Math.sin(time * 0.5) * (Math.PI / 4); 
-        pivot.position.y = Math.sin(time * 0.25) * 2;
+        pivot.rotation.y = Math.sin(time * 0.5) * (Math.PI / 6); 
+        pivot.position.y = Math.sin(time * 0.25) * 4;
       }
 
       const showBg = showBackgroundRef.current;

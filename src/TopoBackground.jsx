@@ -14,9 +14,9 @@ const TopographicBackground = ({ externalAudioRef }) => {
             
             const source = audioCtx.createMediaElementSource(externalAudioRef.current);
             const analyser = audioCtx.createAnalyser();
-            analyser.minDecibels = -92.5; //-100
+            analyser.minDecibels = -100; //-100 //-98.5
             analyser.maxDecibels = 0; //-30
-            analyser.smoothingTimeConstant = 0.75; //0.65 //0.8
+            analyser.smoothingTimeConstant = 0.75; //0.75
             analyser.fftSize = 256;
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
@@ -110,16 +110,16 @@ const TopographicBackground = ({ externalAudioRef }) => {
                 bass = audioData[0] || 0;
             }
 
-            time += 0.0001 + (volume * 0.00005);
+            time += 0.00007 + (volume * 0.0000925) + (bass * 0.00000085);
             morphTime += 0.0001 + (volume * 0.00005);
 
-            const currentScale = 0.001 + (bass * 0.0000000725); //0.0000000725
+            const currentScale = 0.000825 + (bass * 0.0000001);
             const noiseIntensity = 0.8 + (volume * 0.0001);
 
             ctx.fillStyle = '#000000'; //#0a0a0a
             ctx.fillRect(0, 0, width, height);
 
-            const baseAlpha = 0.0008 + (volume * 0.0285); //0.0008 || 0.0004 + (volume * 0.0185)
+            const baseAlpha = 0.000685 + (volume * 0.0285); //0.000685 + (volume * 0.0185)
             ctx.strokeStyle = `rgba(252, 45, 45, ${baseAlpha})`;
             ctx.lineWidth = 2 + (volume * 0.0375);
             ctx.lineCap = 'round';
