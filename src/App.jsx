@@ -262,7 +262,7 @@ const CONFIG = {
 
       //                    uno
 //      'Above the Rib',
-//      'Soufside Love Story (Follow Me)',
+      'Soufside Love Story (Follow Me)',
 
       //                    untiljapan
 //      'Child Soldier',
@@ -538,7 +538,7 @@ const AnimatedLogo = ({ style, showBackground }) => {
 
         object.position.set(-center.x, -center.y, -center.z);
         object.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), 135.5);
-        object.scale.set(0.5, 0.5, 0.5);
+        object.scale.set(0.55, 0.55, 0.55);
 
         object.updateMatrixWorld(true);
 
