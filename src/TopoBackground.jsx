@@ -1,9 +1,28 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth < 768;
+      setIsMobile(isTouchDevice || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
 
 const TopographicBackground = ({ externalAudioRef }) => {
     const canvasRef = useRef(null);
     const audioContextRef = useRef(null);
     const analyserRef = useRef(null);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         if (!externalAudioRef.current || analyserRef.current) return;
@@ -77,7 +96,7 @@ const TopographicBackground = ({ externalAudioRef }) => {
         };
 
         let width, height;
-        const step = 10; //10 //20-30+
+        const step = isMobile ? 25 : 10; //10 //20-30+
         let time = 0;
         let morphTime = 0;
         
