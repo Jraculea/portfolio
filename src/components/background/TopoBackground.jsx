@@ -1,22 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      const isSmallScreen = window.innerWidth < 768;
-      setIsMobile(isTouchDevice || isSmallScreen);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  return isMobile;
-};
+import React, { useEffect, useRef } from 'react';
+import useIsMobile from '../../hooks/useIsMobile';
 
 const TopographicBackground = ({ externalAudioRef }) => {
     const canvasRef = useRef(null);
