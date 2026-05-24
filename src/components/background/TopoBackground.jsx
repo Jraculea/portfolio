@@ -113,7 +113,7 @@ const TopographicBackground = ({ externalAudioRef }) => {
             }
 
             time += 0.00007 + (volume * 0.0000925) + (bass * 0.00000085);
-            morphTime += 0.0001 + (volume * 0.00005);
+            morphTime += 0.0001 + (volume * 0.00035);
 
             const currentScale = 0.000825 + (bass * 0.0000001);
             const noiseIntensity = 0.8 + (volume * 0.0001);
@@ -121,9 +121,9 @@ const TopographicBackground = ({ externalAudioRef }) => {
             ctx.fillStyle = '#000000'; //#0a0a0a
             ctx.fillRect(0, 0, width, height);
 
-            const baseAlpha = 0.000685 + (volume * 0.0285); //0.000685 + (volume * 0.0185)
+            const baseAlpha = 0.000685 + (volume * 0.0575); //0.0385 min
             ctx.strokeStyle = `rgba(252, 45, 45, ${baseAlpha})`;
-            ctx.lineWidth = 2 + (volume * 0.0375);
+            ctx.lineWidth = 2 + (volume * 0.0775);
             ctx.lineCap = 'round';
             ctx.beginPath();
 
