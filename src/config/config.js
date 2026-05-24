@@ -80,18 +80,18 @@ const CONFIG = {
   socials: [
     { name: 'x', url: 'https://x.com', icon: `${BASE_URL}assets/icons/x.svg` },
     { name: 'instagram', url: 'https://instagram.com', icon: `${BASE_URL}assets/icons/instagram.svg` },
-    { name: 'github', url: 'https://github.com', icon: `${BASE_URL}assets/icons/github.svg` },
+    { name: 'github', url: 'https://github.com/jraculea', icon: `${BASE_URL}assets/icons/github.svg` },
     { name: 'linkedin', url: 'https://linkedin.com', icon: `${BASE_URL}assets/icons/linkedin.svg` },
   ],
   projects: [
     {
       title: 'Order Book Simulator',
-      subtitle: 'Order Book Simulator',
+      subtitle: 'Mock Terminal Trading Exchange',
       description: 'A high-performance, multi-threaded financial tool designed to simulate a real-time trading exchange in the terminal. This project models a live limit order book with dynamic bid/ask order matching, capable of processing thousands of orders under strict price-time priority constraints. By architecture-level separation of concerns, the simulator maintains sub-millisecond execution latencies while driving a live visual interface of market depth.',
       isOpenSource: true,
       image: `${BASE_URL}assets/images/halftone_7.png`,
       tags: ['C++'],
-      githubUrl: 'https://github.com/yourusername/portfolio',
+      githubUrl: 'https://github.com/jraculea/OrderBookSimulator',
       websiteUrl: null
     },
     {
@@ -101,7 +101,7 @@ const CONFIG = {
       isOpenSource: true,
       image: `${BASE_URL}assets/images/halftone_7.png`,
       tags: ['Java', 'Selenium WebDriver'],
-      githubUrl: 'https://github.com/Jraculea/SeatSniper',
+      githubUrl: 'https://github.com/jraculea/SeatSniper',
       websiteUrl: null
     },
     {
