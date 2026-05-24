@@ -8,9 +8,9 @@ const SocialSidebar = () => {
     <div 
       className="fixed flex flex-col z-50"
       style={{
-        bottom: isMobile ? 'clamp(50px, 8vmin, 75px)' : '11.5vmin',
-        left: isMobile ? 'clamp(40px, 8vmin, 55px)' : '8vmin',
-        gap: isMobile ? 'clamp(35px, 8vmin, 50px)' : 'clamp(28px, 4.75vmin, 65px)'
+        bottom: isMobile ? 'clamp(47px, 8vmin, 75px)' : '11.5vmin',
+        left: isMobile ? 'clamp(37px, 8vmin, 55px)' : '8vmin',
+        gap: isMobile ? 'clamp(37px, 8vmin, 50px)' : 'clamp(28px, 4.75vmin, 65px)'
       }}
     >
       {CONFIG.socials.map((social) => <SocialItem key={social.name} social={social} />)}

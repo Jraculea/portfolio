@@ -13,9 +13,14 @@ export default function PortfolioWebsite() {
   const [showContent, setShowContent] = useState(false);
   const [canStartLoading, setCanStartLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [activeMagneticId, setActiveMagneticId] = useState(null); 
+  const [activeMagneticId, setActiveMagneticId] = useState(null);
   const followerPos = useRef({ x: -100, y: -100 });
   const musicButtonRect = useRef(null);
+  const projectCellRects = useRef({});
+  const emailTextRect = useRef(null);
+  const setProjectCellRect = (id, rect) => {
+    projectCellRects.current[id] = rect;
+  };
 
   const audioRef = useRef(null);
   const currentSongIndexRef = useRef(-1);
@@ -95,12 +100,12 @@ export default function PortfolioWebsite() {
   }, [canStartLoading]);
 
   return (
-    <InteractionContext.Provider value={{ activeMagneticId, setActiveMagneticId, followerPos, musicButtonRect }}>
-      <div className="relative" style={{ backgroundColor: CONFIG.colors.background }}>
+    <InteractionContext.Provider value={{ activeMagneticId, setActiveMagneticId, followerPos, musicButtonRect, projectCellRects, setProjectCellRect, emailTextRect }}>
+      <div className="relative" style={{ backgroundColor: CONFIG.colors.background, width: '100vw', height: '100vh', overflow: 'hidden' }}>
         <TopoBackground externalAudioRef={audioRef} />
 
         {/* <audio ref={audioRef} crossOrigin="anonymous" loop /> */}
-        
+
         {showLoadingScreen && (
           <LoadingScreen
             progress={Math.round(progress)}
