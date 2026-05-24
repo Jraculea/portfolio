@@ -58,7 +58,7 @@ const CONFIG = {
       { name: 'Pink + White', type: 'mp3' },
       { name: 'And We Go Gentle', type: 'mp3' },
       { name: 'Everything\'s Beautiful', type: 'mp3' },
-      { name: 'valentine', type: 'flac' },
+      //{ name: 'valentine', type: 'flac' },
       { name: 'DAISIES', type: 'flac' },
       { name: 'SPEED DEMON', type: 'flac' },
       { name: 'YUKON', type: 'flac' },
