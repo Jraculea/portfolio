@@ -89,7 +89,7 @@ const CONFIG = {
       subtitle: 'Mock Terminal Trading Exchange',
       description: 'A high-performance, multi-threaded financial tool designed to simulate a real-time trading exchange in the terminal. This project models a live limit order book with dynamic bid/ask order matching, capable of processing thousands of orders under strict price-time priority constraints. By architecture-level separation of concerns, the simulator maintains sub-millisecond execution latencies while driving a live visual interface of market depth.',
       isOpenSource: true,
-      image: `${BASE_URL}assets/images/halftone_7.png`,
+      image: `${BASE_URL}assets/images/OrderBookShowcase.gif`,
       tags: ['C++'],
       githubUrl: 'https://github.com/jraculea/OrderBookSimulator',
       websiteUrl: null
@@ -99,7 +99,7 @@ const CONFIG = {
       subtitle: 'Course Enrollment Application',
       description: 'An automation tool for CUNY students. Aims to provide better chances at securing seats in desired courses for the current or upcoming semester. The tool periodically checks for seat openings and automatically enrolls if any are available. Ultimately saving time, reducing stress during finals, and helping students avoid poorly rated professors or a delayed graduation.',
       isOpenSource: true,
-      image: `${BASE_URL}assets/images/halftone_7.png`,
+      image: `${BASE_URL}assets/images/SeatSniperShowcase.gif`,
       tags: ['Java', 'Selenium WebDriver'],
       githubUrl: 'https://github.com/jraculea/SeatSniper',
       websiteUrl: null
