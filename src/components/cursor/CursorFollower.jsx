@@ -97,7 +97,7 @@ const CursorFollower = () => {
         height: isMusicButton ? 'clamp(57px, 12vmin, 125px)' : (isMagnetic ? 'clamp(32px, 8vmin, 75px)' : 'clamp(25px, 8vmin, 60px)'),
         opacity: 1,
         mixBlendMode: 'difference',
-        zIndex: 60,
+        zIndex: CONFIG.cursorFollowerZIndex,
         borderRadius: isEmailText ? '0' : (isProjectCell ? '8px' : '50%'),
         willChange: 'transform, width, height'
       }}

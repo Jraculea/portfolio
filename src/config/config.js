@@ -8,6 +8,8 @@ const CONFIG = {
   emailUsername: 'justin',
   emailDomainName: 'protonmail',
   emailTopLevelDomain: 'com',
+  stickyButtonZIndex: 10,
+  cursorFollowerZIndex: 20,
   colors: {
     primary: '#fc2d2dff',
     secondary: '#ff5100ff',

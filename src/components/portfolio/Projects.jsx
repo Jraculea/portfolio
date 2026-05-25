@@ -127,23 +127,18 @@ const Projects = () => {
               {project.image && (
                 <div
                   style={{
+                    position: 'relative',
+                    zIndex: CONFIG.cursorFollowerZIndex + 1,
                     width: '100%',
                     height: isMobile ? '150px' : '200px',
                     marginBottom: '1rem',
                     borderRadius: '6px',
-                    overflow: 'hidden',
-                    backgroundColor: isActive ? `${CONFIG.colors.differencePurple}20` : `${CONFIG.colors.white}10`
+                    backgroundImage: `url(${project.image})`,
+                    backgroundSize: 'cover', //'contain',
+                    backgroundPosition: 'left', //'center',
+                    backgroundRepeat: 'no-repeat'
                   }}
                 >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                  />
                 </div>
               )}
 

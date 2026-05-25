@@ -247,8 +247,9 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
         <button
           ref={buttonRef}
           onClick={onMusicToggle}
-          className="fixed rounded-full backdrop-blur-sm transition-all hover:scale-110 active:scale-95 z-50 shadow-lg flex items-center justify-center touch-manipulation"
+          className="fixed rounded-full backdrop-blur-sm transition-all hover:scale-110 active:scale-95 shadow-lg flex items-center justify-center touch-manipulation"
           style={{
+            zIndex: CONFIG.stickyButtonZIndex,
             backgroundColor: `${CONFIG.colors.primary}40`,
             border: `2px solid ${CONFIG.colors.primary}`,
             width: isMobile ? 'clamp(55px, 10vmin, 110px)' : 'clamp(45px, 9vmin, 100px)',
