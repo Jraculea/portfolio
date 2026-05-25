@@ -114,7 +114,7 @@ const CONFIG = {
       image: `${BASE_URL}assets/images/halftone_7.png`,
       tags: ['Luau'],
       githubUrl: null,
-      websiteUrl: 'https://yourportfolio.com'
+      websiteUrl: 'https://google.com'
     }
   ]
 };
