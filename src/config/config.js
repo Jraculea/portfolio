@@ -5,7 +5,7 @@ const CONFIG = {
   personalDescription: 'I\'m a computer science student focused on high-performance engineering. I\'m interested in creating scalable, automated systems to provide reliable and optimized solutions that help others.',
   callToAction1: 'Interested in system design, interactive experiences, or autonomous networks?',
   callToAction2: 'Let\'s talk.',
-  emailUsername: 'justin',
+  emailUsername: 'justin.eng',
   emailDomainName: 'protonmail',
   emailTopLevelDomain: 'com',
   stickyButtonZIndex: 10,
