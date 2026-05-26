@@ -11,6 +11,7 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
   const buttonRef = useRef(null);
   const emailTextRef = useRef(null);
   const mousePos = useRef({ x: -100, y: -100 });
+  const scrollContainerRef = useRef(null);
   const { activeMagneticId, setActiveMagneticId, followerPos, musicButtonRect, projectCellRects, emailTextRect } = useContext(InteractionContext);
   const isMobile = useIsMobile();
 
@@ -40,13 +41,19 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
 
     updateRect();
     window.addEventListener('resize', updateRect);
-    window.addEventListener('scroll', updateRect);
+
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', updateRect);
+    }
 
     return () => {
       window.removeEventListener('resize', updateRect);
-      window.removeEventListener('scroll', updateRect);
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', updateRect);
+      }
     };
-  }, [musicButtonRect, emailTextRect, isVisible]);
+  }, [musicButtonRect, emailTextRect, isVisible, scrollContainerRef]);
 
   useEffect(() => {
     if (isMobile || !buttonRef.current) return;
@@ -158,6 +165,7 @@ const PortfolioContent = ({ isVisible, onMusicToggle, isPlaying }) => {
 
       {isVisible && (
   <div
+    ref={scrollContainerRef}
     className="flex flex-col items-center"
     style={{
       padding: isMobile ? 'clamp(12px, 3vmin, 20px) 1rem 0 1rem' : '2rem 0 0 0',
