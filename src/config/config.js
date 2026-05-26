@@ -109,7 +109,7 @@ const CONFIG = {
     {
       title: 'Games',
       subtitle: 'Game Development Projects',
-      description: 'A collection of game development projects created using the Roblox game engine.',
+      description: 'A collection of game development projects created using the Roblox Studio game engine.',
       isOpenSource: false,
       image: `${BASE_URL}assets/images/halftone_7.png`,
       tags: ['Luau'],
