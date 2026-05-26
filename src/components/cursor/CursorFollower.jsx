@@ -53,7 +53,7 @@ const CursorFollower = () => {
       } else if (isEmailText && emailTextRect.current) {
         const rect = emailTextRect.current;
 
-        targetX = (rect.left + rect.width / 2) + 1;
+        targetX = rect.left + rect.width / 2;
         targetY = rect.bottom - 7;
         targetWidth = rect.width * 1;
         targetHeight = 0;

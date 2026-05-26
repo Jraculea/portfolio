@@ -55,19 +55,7 @@ const Projects = () => {
   }, [projects, setProjectCellRect]);
 
   return (
-    <div style={{ padding: isMobile ? '5rem 1.5rem' : '10rem 2rem', maxWidth: isMobile ? '75%' : '55vw', margin: '0 auto' }}>
-      {/* <h2 
-        style={{
-          color: CONFIG.colors.text,
-          fontSize: isMobile ? 'clamp(1.5rem, 5vmin, 2.5rem)' : 'clamp(2rem, 4vmin, 3rem)',
-          marginBottom: isMobile ? '2rem' : '3rem',
-          textShadow: '0 0 15px rgba(255, 255, 255, 0.3)',
-          textAlign: 'center'
-        }}
-      >
-        Projects
-      </h2> */}
-      
+    <div style={{ padding: isMobile ? '5rem 1.5rem' : '8.5rem 2rem', maxWidth: isMobile ? '75%' : 'clamp(55%, 1425px, 75%)', margin: '0 auto' }}>     
       <div 
         style={{
           display: 'grid',
